@@ -880,7 +880,7 @@ SELECT TO_CHAR(SYSDATE, 'YYYY') "1"     -- 2021 → 연도를 추출하여 문자 타입으로
      , TO_CHAR(SYSDATE, 'MM') "2"       -- 09   → 월을 추출하여 문자 타입으로...
      , TO_CHAR(SYSDATE, 'DD') "3"       -- 02	→ 일을 추출하여 문자 타입으로...
      , EXTRACT(YEAR FROM SYSDATE) "4"   -- 2021	→ 연도를 추출하여 숫자 타입으로... --@ 날짜로부터 연도를 얻어온다...
-     , EXTRACT(YEAR FROM SYSDATE) "5"   -- 2021	→ 월을 추출하여 숫자 타입으로...   --@ 꼭 SYSDATE 아니어도 날짜타입이면 됨
+     , EXTRACT(MONTH FROM SYSDATE) "5"  -- 9	→ 월을 추출하여 숫자 타입으로...   --@ 꼭 SYSDATE 아니어도 날짜타입이면 됨
      , EXTRACT(DAY FROM SYSDATE) "6"    -- 2    → 일을 추출하여 숫자 타입으로...
 FROM DUAL;
 --@ TO_CHAR : 문자로 반환.. EXTRACT : 숫자로 반환....
@@ -1072,16 +1072,89 @@ FROM DUAL;
 
 SELECT CASE WHEN SUBSTR(JUBUN, 1,1) = '0' THEN EXTRACT(YEAR FROM SYSDATE) - (2000+(주민번호 앞자리 두개))
             ELSE 현재 년도 - (1900+(주민번호 앞자리 두개))
-            END "나이"
+            END "현재나이";
 
-SELECT CASE WHEN SUBSTR(JUBUN, 1,1) = '0' THEN EXTRACT(YEAR FROM SYSDATE) - (2000+(주민번호 앞자리 두개))
-            ELSE 현재 년도 - (1900+(주민번호 앞자리 두개))
-            END "나이"
+SELECT CASE WHEN SUBSTR(JUBUN, 1,1) = '0' THEN EXTRACT(YEAR FROM SYSDATE) - (2000 + TO_NUMBER(SUBSTR(JUBUN,1,2))) + 1
+            ELSE EXTRACT(YEAR FROM SYSDATE) - (1900 + TO_NUMBER(SUBSTR(JUBUN,1,2))) + 1
+            END "현재나이"
+FROM TBL_SAWON;
 
+SELECT SANO "사원번호", SANAME "사원명" , JUBUN "주민번호" 
+        , CASE WHEN SUBSTR(JUBUN, 7, 1) = '2' OR SUBSTR(JUBUN, 7, 1) = '4' THEN '여성' 
+            WHEN SUBSTR(JUBUN, 7, 1) = '1' OR SUBSTR(JUBUN, 7, 1) = '3' THEN '남성'
+            ELSE '성별미상'
+            END "성별"
+            
+        , CASE WHEN SUBSTR(JUBUN, 1,1) = '0' THEN EXTRACT(YEAR FROM SYSDATE) - (2000 + TO_NUMBER(SUBSTR(JUBUN,1,2))) + 1
+            ELSE EXTRACT(YEAR FROM SYSDATE) - (1900 + TO_NUMBER(SUBSTR(JUBUN,1,2))) + 1
+            END "현재나이"
+        , HIREDATE "입사일"
+            
+        /*CASE WHEN 김사원이 60세가 되면... THEN HIREDATE의 해당 년도로 적용
+            ELSE 
+            END "정년퇴직일"*/
+        /*CASE WHEN 60-현재나이 THEN HIREDATE의 해당 년도로 적용
+            ELSE 
+            END "정년퇴직일"*/
+            
+            -- (60 - "현재나이") -> 이 년도를 HIREDATE 년도에 더하면 됨....
+            -- TO_DATE(HIREDATE, 'YY-MM-DD') HIREDATE 99..11
+            /*
+        , CASE WHEN SUBSTR(JUBUN, 1,1) = '0' THEN 2021 + 60 - (EXTRACT(YEAR FROM SYSDATE) - (2000 + TO_NUMBER(SUBSTR(JUBUN,1,2))) + 1)
+            ELSE 2021 + 60 - (EXTRACT(YEAR FROM SYSDATE) - (1900 + TO_NUMBER(SUBSTR(JUBUN,1,2))) + 1)
+            END "정년퇴직일년도"
+            
+        , CASE WHEN SUBSTR(JUBUN, 1,1) = '0' THEN 60 - (EXTRACT(YEAR FROM SYSDATE) - (2000 + TO_NUMBER(SUBSTR(JUBUN,1,2))) + 1)
+            ELSE 60 - (EXTRACT(YEAR FROM SYSDATE) - (1900 + TO_NUMBER(SUBSTR(JUBUN,1,2))) + 1)
+            END "정년퇴직일년도"
+            */
+            
+        , CASE TO_NUMBER(SUBSTR(JUBUN, 7,1))  WHEN 1 THEN TO_DATE(TO_CHAR(1959 + TO_NUMBER(SUBSTR(JUBUN, 1,2))) || TO_CHAR(HIREDATE, '-MM-DD'), 'YYYY-MM-DD')
+                                         WHEN 2 THEN TO_DATE(TO_CHAR(1959 + TO_NUMBER(SUBSTR(JUBUN, 1,2))) || TO_CHAR(HIREDATE, '-MM-DD'), 'YYYY-MM-DD')
+                                         ELSE TO_DATE(TO_CHAR(2059 + TO_NUMBER(SUBSTR(JUBUN, 1,2))) || TO_CHAR(HIREDATE, '-MM-DD'), 'YYYY-MM-DD')
+             END "정년퇴직일"
+       
+        , TRUNC(SYSDATE - HIREDATE) "근무일수"
+        
+        , CASE TO_NUMBER(SUBSTR(JUBUN, 7,1))  WHEN 1 THEN TRUNC(TO_DATE(TO_CHAR(1959 + TO_NUMBER(SUBSTR(JUBUN, 1,2))) || TO_CHAR(HIREDATE, '-MM-DD'), 'YYYY-MM-DD')-SYSDATE)
+                                          WHEN 2 THEN TRUNC(TO_DATE(TO_CHAR(1959 + TO_NUMBER(SUBSTR(JUBUN, 1,2))) || TO_CHAR(HIREDATE, '-MM-DD'), 'YYYY-MM-DD')-SYSDATE)
+                                          ELSE TRUNC(TO_DATE(TO_CHAR(2059 + TO_NUMBER(SUBSTR(JUBUN, 1,2))) || TO_CHAR(HIREDATE, '-MM-DD'), 'YYYY-MM-DD')-SYSDATE)
+       END "남은일수"
+     
+     , SAL "급여"
+     
+     , CASE WHEN TRUNC(SYSDATE - HIREDATE) >= 1000 AND TRUNC(SYSDATE - HIREDATE) < 2000 THEN SAL * 0.3
+            WHEN TRUNC(SYSDATE - HIREDATE) >= 2000 THEN SAL * 0.5
+            ELSE 0
+       END "보너스"
+       
+FROM TBL_SAWON;
 
+            /*
+         , CASE WHEN SUBSTR(JUBUN, 1,1) = '0' THEN ADD_MONTHS(HIREDATE, (60 - (EXTRACT(YEAR FROM SYSDATE) - (2000 + TO_NUMBER(SUBSTR(JUBUN,1,2))) + 1)) * 12)
+            ELSE 60 - (EXTRACT(YEAR FROM SYSDATE) - (1900 + TO_NUMBER(SUBSTR(JUBUN,1,2))) + 1)
+            END "정년퇴직일년도"
+            */
 
+/*            
+FROM TBL_SAWON;
+--TO_DATE('2021-12-28', 'YYYY-MM-DD')
+---TO_DATE('XXXX-TO_CHAR(SYSDATE, 'MM')-TO_CHAR(SYSDATE, 'DD')', 'YYYY-MM-DD')
+--TO_CHAR(SYSDATE, 'MM')
+--TO_CHAR(SYSDATE, 'DD')
+*/
+-- SYSDATE + TO_YMINTERVAL('01-02')
+/*
+SELECT SYSDATE "현재 시간"
+     , SYSDATE + TO_YMINTERVAL('10-0') "연산 결과"
+               --@ 1년 2개월 더해짐                   3일 4시간 5분 6초 더해짐
+FROM DUAL;  
+--==>>
 
+SELECT TO_DATE('1999-EXTRACT(MONTH FROM SYSDATE)-EXTRACT(DAY FROM SYSDATE)', 'YYYY-MM-DD')
+FROM DUAL;
 
-
-
+SELECT ADD_MONTHS(HIREDATE, (60 - (EXTRACT(YEAR FROM SYSDATE) - (2000 + TO_NUMBER(SUBSTR(JUBUN,1,2))) + 1)) * 12) "결과 확인"
+FROM TBL_SAWON;
+*/
 
