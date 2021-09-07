@@ -580,9 +580,8 @@ FROM TBL_EMP
 GROUP BY GROUPING SETS((DEPTNO, JOB), (DEPTNO), (JOB))
 ORDER BY 1, 2;
 --==>>
-----------@ 결과창 살짝 정리하기
 /*
-부서번호                                     직종               급여합
+부서번호                                   직종       급여합
 ---------------------------------------- --------- ----------
 10                                       CLERK           1300
 10                                       MANAGER         2450
@@ -599,7 +598,11 @@ ORDER BY 1, 2;
 인턴                                     CLERK           2500
 인턴                                     SALESMAN        5500
 인턴                                     전체직종        8000
-전체부서                                 전체직종       37025
+전체부서                                 ANALYST         6000
+전체부서                                 CLERK           6650
+전체부서                                 MANAGER         8275
+전체부서                                 PRESIDENT       5000
+전체부서                                 SALESMAN       11100
 */
 
 
@@ -615,7 +618,7 @@ GROUP BY GROUPING SETS((DEPTNO, JOB), (DEPTNO), ())     -- ROLLUP() 과 같은 결과
 ORDER BY 1, 2;
 --==>>
 /*
-부서번호                                     직종               급여합
+부서번호                                   직종       급여합
 ---------------------------------------- --------- ----------
 10                                       CLERK           1300
 10                                       MANAGER         2450
@@ -628,9 +631,6 @@ ORDER BY 1, 2;
 30                                       CLERK            950
 30                                       MANAGER         2850
 30                                       SALESMAN        5600
-
-부서번호                                     직종               급여합
----------------------------------------- --------- ----------
 30                                       전체직종        9400
 인턴                                     CLERK           2500
 인턴                                     SALESMAN        5500
@@ -651,7 +651,7 @@ GROUP BY GROUPING SETS((DEPTNO, JOB), (JOB), ())     -- CUBE() 와 같은 결과
 ORDER BY 1, 2;
 --==>>
 /*
-부서번호                                     직종               급여합
+부서번호                                   직종      급여합
 ---------------------------------------- --------- ----------
 10                                       CLERK           1300
 10                                       MANAGER         2450
@@ -664,9 +664,6 @@ ORDER BY 1, 2;
 30                                       SALESMAN        5600
 인턴                                     CLERK           2500
 인턴                                     SALESMAN        5500
-
-부서번호                                     직종               급여합
----------------------------------------- --------- ----------
 전체부서                                 ANALYST         6000
 전체부서                                 CLERK           6650
 전체부서                                 MANAGER         8275
@@ -1006,20 +1003,20 @@ SELECT E1.ENAME "사원명", E1.SAL "급여", (SELECT COUNT(*) + 1
 FROM EMP E1;
 --==>>
 /*
-SMITH	800	14
-ALLEN	1600	7
+SMITH	800	    14
+ALLEN	1600	 7
 WARD	1250	10
-JONES	2975	4
+JONES	2975	 4
 MARTIN	1250	10
-BLAKE	2850	5
-CLARK	2450	6
-SCOTT	3000	2
-KING	5000	1
-TURNER	1500	8
+BLAKE	2850	 5
+CLARK	2450	 6
+SCOTT	3000	 2
+KING	5000	 1
+TURNER	1500	 8
 ADAMS	1100	12
-JAMES	950	13
-FORD	3000	2
-MILLER	1300	9
+JAMES	 950	13
+FORD	3000	 2
+MILLER	1300	 9
 */
 
 -- ○ EMP 테이블을 대상으로
@@ -1248,7 +1245,7 @@ FROM EMP;
 
 
 --※ 게시판의 게시물 번호를 SEQUENCE 나 IDENTITY 를 사용하게 되면
---   게시물을 삭제했을 경우, 삭제한 게시물의 자리에 다음 버호를 가진
+--   게시물을 삭제했을 경우, 삭제한 게시물의 자리에 다음 번호를 가진
 --   게시물이 등록되는 상황이 발생하게 된다.
 --   이는 보안 측면에서나... 미관적인 측면에서나... 바람직하지 않은 상황일 수 있기 때문에
 --   ROW_NUMBER() 의 사용을 고려해 볼 수 있다.
