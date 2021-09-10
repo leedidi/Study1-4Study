@@ -1,0 +1,306 @@
+SELECT USER
+FROM DUAL;
+--==>> SCOTT
+
+--■■■ UPDATE ■■■--
+
+-- 1. 테이블에서 기존 데이터를 변경하는 구문
+
+-- 2. 형식 및 구조
+--@ UPDATE에서 신경써야 할 부분!
+--@※ 1. 작성 순서 UPDATE절 → 일단 WHERE절 먼저 쓰기 → 전체 레코드에 대해 적용한다? 그러면 WHERE절 이제 지우기
+--@※ 2. UPDATE 구문 작성하고 커밋구문 묶어두기 말기. 오토커밋도 하지 말기
+--@ --> 사실 신입 개발자정도에선 이거 조심해서 사용하기 때문에 실수 많이 안남.. 근데 젤 많이 사고나는게 2년차!
+--@     이제 벌벌 안떨고.. 간도 좀 커졌고.. 이럴때 사고가 남!
+--@     DB를 깨먹었다... 적극적으로 사고 수습하려고 해야함 ㅠㅋㅋㅋ 도망가면 안됨!
+
+-- UPDATE 테이블명
+-- SET 컬럼명 = 변경할값[, 컬럼명 = 변경할값, 컬럼명 = 변경할값]
+-- [WHERE 조건절]
+
+SELECT *
+FROM TBL_SAWON;
+
+ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD';
+--==>> Session이(가) 변경되었습니다.
+
+
+
+--○ TBL_SAWON 테이블에서 사원번호 1003번 사원의
+--   주민번호를 『9907222234567』로 수정한다.
+
+--◈ 내가 작성한 코드
+/*
+-- UPDATE 테이블명
+-- SET 컬럼명 = 변경할값[, 컬럼명 = 변경할값, 컬럼명 = 변경할값]
+-- [WHERE 조건절]
+
+UPDATE TBL_SAWON
+SET JUBUN = '9907222234567'
+WHERE SANO = 1003;
+
+DESC TBL_SAWON;
+*/
+UPDATE TBL_SAWON
+SET JUBUN='9907222234567'
+WHERE SANO=1003;
+--==>> 1 행 이(가) 업데이트되었습니다.
+
+SELECT *
+FROM TBL_SAWON;
+--@ 실행 후 제대로 변경됐는지 반드시 확인하고 커밋하기!!
+
+-- 실행 후 COMMIT 또는 ROLLBACK 을 반드시 선택적으로 실행
+COMMIT;
+--==>> 커밋 완료.
+
+
+--○ TBL_SAWON 테이블에서 1005번 사원의 입사일과 급여를
+--   각각 2018-02-22, 1200 으로 변경한다.
+--◈ 내가 작성한 코드
+/*
+UPDATE TBL_SAWON
+SET HIREDATE = TO_DATE('2018-02-22', 'YYYY-MM-DD') AND SAL = 1200 --@ AND OR 쓰는 게 아님! 각각 독립적인 변경
+WHERE SANO = 1005;
+
+DESC TBL_SAWON;
+
+SELECT *
+FROM TBL_SAWON;
+*/
+-- 함께 작성한 코드
+UPDATE TBL_SAWON
+SET HIREDATE = TO_DATE('2018-02-22', 'YYYY-MM-DD')  --@ AND OR 쓰는 게 아님! 각각 독립적인 변경이기 때문에 , 사용
+   , SAL= 1200
+WHERE SANO=1005;
+--==>> 1 행 이(가) 업데이트되었습니다.
+
+SELECT *
+FROM TBL_SAWON;
+
+COMMIT;
+
+
+
+--○ TBL_INSA 테이블의 데이터만 복사
+CREATE TABLE TBL_INSABACKUP
+AS
+SELECT *
+FROM TBL_INSA;
+--==>> Table TBL_INSABACKUP이(가) 생성되었습니다.
+
+
+--○ TBL_INSABACKUP 테이블에서
+--   직위가 과장과 부장만 수당 10% 인상~!!!
+--◈ 내가 작성한 코드
+/*
+UPDATE TBL_INSABACKUP
+SET SUDANG = SUDANG * 1.1
+WHERE JIKWI IN ('과장', '부장');
+
+SELECT *
+FROM TBL_INSABACKUP;
+*/
+-- 함께 작성한 코드
+
+SELECT *
+FROM TBL_INSABACKUP;
+
+SELECT NAME"사원명", JIKWI"직위", SUDANG"수당", SUDANG*1.1 "10%인상된수당"
+FROM TBL_INSABACKUP
+WHERE JIKWI IN ('과장', '부장');
+-- 가급적 바꿔야할 항목 확인하고 바꾸기!
+--==> 
+/*
+홍길동	부장	200000	220000
+이순애	부장	160000	176000
+이기자	과장	150000	165000
+김종서	부장	130000	143000
+이상헌	과장	150000	165000
+박문수	과장	165000	181500
+김인수	부장	170000	187000
+김영길	과장	170000	187000
+정정해	과장	124000	136400
+지재환	부장	160000	176000
+최석규	과장	187000	205700
+문길수	과장	150000	165000
+허경운	부장	150000	165000
+권영미	과장	104000	114400
+이미경	부장	160000	176000
+*/
+
+UPDATE TBL_INABACKUP
+SET SUDANG = SUDANG*1.1
+WHERE JIKWI IN ('과장', '부장');
+--==>> 15개 행 이(가) 업데이트되었습니다.
+--@ 업데이트, 딜리트는 절대 급하게 하지 말기!
+
+SELECT *
+FROM TBL_INSABACKUP;
+
+COMMIT;
+
+
+-- ○ TBL_INSABACKUP 테이블에서 전화번호가 016, 017, 018, 019 로 시작하는
+--    전화번호인 경우 이를 모두 010 으로 변경한다.
+--◈ 내가 작성한 코드
+/*
+UPDATE TBL_INSABACKUP
+SET TEL = '010' || SUBSTR(TEL, 4, 10)
+WHERE SUBSTR(TEL, 1, 3) IN (016, 017, 018, 019);
+
+SELECT NUM, NAME, TEL"원래번호", '010' || SUBSTR(TEL, 4, 10)"010번호"
+FROM TBL_INSABACKUP
+WHERE SUBSTR(TEL, 1, 3) IN (016, 017, 018, 019);
+
+SELECT *
+FROM TBL_INSABACKUP;
+*/
+SELECT *
+FROM TBL_INSABACKUP;
+
+UPDATE TBL_INSABACKUP
+SET TEL='010'
+WHERE TEL='016' OR TEL='017' OR TEL='018' OR TEL='019'; --@ 이거 아님!
+
+SELECT *
+FROM TBL_INSABACKUP
+WHERE SUBSTR(TEL, 1, 3) IN ('016', '017', '018', '019');
+
+SELECT TEL"기존전화번호", '010'|| SUBSTR(TEL, 4)"변경된전화번호" --@ 뒤 안써야 혹시 번호자리수 다른 번호도 바뀔수있음
+FROM TBL_INSABACKUP
+WHERE SUBSTR(TEL, 1, 3) IN ('016', '017', '018', '019');
+
+UPDATE TBL_INSABACKUP
+SET TEL = '010'|| SUBSTR(TEL, 4)
+WHERE SUBSTR(TEL, 1, 3) IN ('016', '017', '018', '019');
+--==>> 24개 행 이(가) 업데이트되었습니다.
+
+SELECT *
+FROM TBL_INSABACKUP;
+
+COMMIT;
+
+
+--○ TBL_SAWON 테이블 백업 (2021-09-10 16:10)
+CREATE TABLE TBL_SAWONBACKUP
+AS
+SELECT *
+FROM TBL_SAWON;
+--==>> Table TBL_SAWONBACKUP이(가) 생성되었습니다.
+--@ 어드민 파트에서 백업하면 이거보다 훨씬 복잡... 
+--@ 사실 개발자는 거기까지 권한 없을거기 때문에... 실제로 백업은 이방법밖에 없을거고 이대로 하는게 좋음
+
+--○ 확인
+SELECT *
+FROM TBL_SAWONBACKUP;
+SELECT *
+FROM TBL_SAWON;
+--@ 두개 묶어서 실행하면 두개 실행창 다 뜸!
+--> TBL_SAWON 테이블의 데이터들만 백업을 수행
+--  즉, 다른 이름의 테이블 형태로 데이터를 저장해 둔 상황
+
+UPDATE TBL_SAWON
+SET SANAME = '똘똘이';
+
+COMMIT; --@ 커밋까지 한번에 해버림! 
+
+SELECT *
+FROM TBL_SAWON;
+
+ROLLBACK;
+
+SELECT *
+FROM TBL_SAWON; --@ 실행하면 클날각,,,ㅎ
+--==>>
+/*
+1001	똘똘이	9307302234567	2021-09-03	5000
+1002	똘똘이	9510272234567	2010-11-05	2000
+1003	똘똘이	9907222234567	2012-08-16	1000
+1004	똘똘이	9406032234567	1999-02-02	4000
+1005	똘똘이	0406034234567	2018-02-22	1200
+1006	똘똘이	0202023234567	2011-08-17	2000
+1007	똘똘이	8012122234567	1999-11-11	3000
+1008	똘똘이	8105042234567	1999-11-11	3000
+1009	똘똘이	7209301234567	1995-11-11	3000
+1010	똘똘이	7001022234567	1995-10-10	3000
+1011	똘똘이	9001022234567	2001-10-10	2000
+1012	똘똘이	8009011234567	1998-02-13	4000
+1013	똘똘이	8203051234567	2002-02-13	3000
+1014	똘똘이	9208091234567	2002-02-13	3000
+1015	똘똘이	0202023234567	2015-01-10	2000
+*/
+
+-- 위와 같이...
+-- UPDATE 처리 이후에 COMMIT을 수행하였기 때무에
+-- 백날 해봐야... ROLLBACK 은 불가능한 상황이다.
+-- 하지만, TBL_SAWONBACKUP 테이블에 데이터를 백업해 두었다.
+-- SANAME 컬럼의 내용만 추출하여 똘똘이 대신 넣어줄 수 있다는 것이다.
+
+UPDATE TBL_SAWON
+SET SANAME='김소연'
+WHERE SANO 1001;
+
+UPDATE TBL_SAWON
+SET SANAME='이다영'
+WHERE SANO 1002;
+
+UPDATE TBL_SAWON
+SET SANAME='이지영'
+WHERE SANO 1003;
+
+        :
+
+UPDATE TBL_SAWON
+SET SANAME=(TBL_SAWONBACKUP 테이블의 1001번 사원의 사원명);
+
+UPDATE TBL_SAWON
+SET SANAME=(TBL_SAWONBACKUP 테이블의 각각 자기 사원번호의 사원의 사원명);
+
+UPDATE TBL_SAWON
+SET SANAME=(SELECT SANAME
+            FROM TBL_SAWONBACKUP
+            WHERE SANO = TBL_SAWON.SANO);
+
+UPDATE TBL_SAWON
+SET SANAME=(SELECT SANAME
+            FROM TBL_SAWONBACKUP
+            WHERE SANO = 1001); → '김소연'
+
+UPDATE TBL_SAWON
+SET SANAME='김소연';
+
+UPDATE TBL_SAWON
+SET SANAME=(SELECT SANAME
+            FROM TBL_SAWONBACKUP
+            WHERE SANO = 1002); → '이다영'
+            
+UPDATE TBL_SAWON
+SET SANAME='이다영';
+
+UPDATE TBL_SAWON
+SET SANAME=(SELECT SANAME
+            FROM TBL_SAWONBACKUP
+            WHERE SANO = TBL_SAWON.SANO);
+--==>>
+/*
+1001	김소연	9307302234567	2021-09-03	5000
+1002	이다영	9510272234567	2010-11-05	2000
+1003	이지영	9907222234567	2012-08-16	1000
+1004	손다정	9406032234567	1999-02-02	4000
+1005	이하이	0406034234567	2018-02-22	1200
+1006	이이경	0202023234567	2011-08-17	2000
+1007	김이나	8012122234567	1999-11-11	3000
+1008	아이유	8105042234567	1999-11-11	3000
+1009	선동열	7209301234567	1995-11-11	3000
+1010	선우용녀	7001022234567	1995-10-10	3000
+1011	선우선	9001022234567	2001-10-10	2000
+1012	남진	8009011234567	1998-02-13	4000
+1013	남궁현	8203051234567	2002-02-13	3000
+1014	남도일	9208091234567	2002-02-13	3000
+1015	김남길	0202023234567	2015-01-10	2000
+*/
+
+COMMIT;
+--==>> 커밋 완료.
+---->>@ 불완전 복구! 현재 시점에서 복구가 아닌 과거에서 복구됨
