@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="3E17435C-0E39-24E8-7F46-F0A0BDA37C83" mainViewID="9C2F319B-062C-C929-FEB7-270344519B5B">
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:28:25 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</LogicalDesign>
