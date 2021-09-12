@@ -25,6 +25,11 @@ class Study012
 		{
 			Queue<Node> q = new LinkedList<>();
 		}
+
+		q.offer(new Node(x, y));
+
+		// q가 빌 때까지 반복!
+		while(!q.isEmpty()) {}
 	}
 }
 
