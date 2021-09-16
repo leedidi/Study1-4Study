@@ -155,20 +155,59 @@ END;
 -- @ 오류...! ㅎㅎ 나중에 확인 --> 오류 해결 완료!
 --==>> Function FN_POW이(가) 컴파일되었습니다.
 
+
+
+
 --* 과제
 --@ 카페에 올리기! 풀다가 스스로 못 해결하겠으면 카페 다른 식구들 코드 참고해도 됨....
 
---○ 과제
+
+SELECT *
+FROM TBL_INSA;
+
+--○ 과제 1
 -- TBL_INSA 테이블의 급여 계산 전용 함수를 정의한다.
 -- 급여는 『(기본급*12)+수당』 을 기반으로 연산을 수행한다.
 -- 함수명 : FN_PAY(기본급, 수당)
 
---○ 과제
+CREATE OR REPLACE FUNCTION FN_PAY(BASICPAY NUMBER, SUDANG NUMBER) -- 매개변수
+RETURN NUMBER
+IS
+    -- 주요 변수 선언
+    V_YEARPAY     NUMBER;
+BEGIN
+    -- 연산 및 처리
+    V_YEARPAY := (BASICPAY * 12) + SUDANG;
+    
+    -- 최종 결과값 반환
+    RETURN V_YEARPAY;
+END;
+--==>> Function FN_PAY이(가) 컴파일되었습니다.
+
+
+--○ 과제 2
 -- TBL_INSA 테이블의 입사일을 기준으로
 -- 현재까지의 근무년수를 반환하는 함수를 정의한다.
 -- 단, 근무년수는 소수점 이하 한자리까지 계산한다.
 -- 함수명 : FN_WORKYEAR(입사일)
 
+ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD';
+--==>> Session이(가) 변경되었습니다.
+
+CREATE OR REPLACE FUNCTION FN_WORKYEAR(IBSADATE DATE)
+RETURN NUMBER
+IS
+    -- 주요 변수 선언
+    -- 현재까지의 근무년수(소수점 이하 한자리까지)
+    V_WORKYEAR    NUMBER;
+BEGIN
+    -- 연산 및 처리
+    V_WORKYEAR := TRUNC((SYSDATE - IBSADATE)/365, 1);
+    
+    -- 최종 결과값 반환
+    RETURN V_WORKYEAR;
+END;
+--==>> Function FN_WORKYEAR이(가) 컴파일되었습니다.
 
 --------------------------------------------------------------------------------
 

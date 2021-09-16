@@ -143,28 +143,49 @@ CREATE TABLE TBL_TEST1
 	DEPARTMENT_ID            NUMBER(4)      JHIST_DEPT_FK                   R          DEPARTMENT_ID       
     
 -- 2. 테이블 생성 구문 작성
-/*
---1) P 삽입 구문 작성 예제 (P.K)
+
+--> 테이블 생성구문 안에서 작성하려면... 이렇게!
+CREATE TABLE JOB_HISTORY03 
+(...
+, CONSTRAINT JHIST03_EMP_ID_ST_DATE_PK PRIMARY KEY(EMPLOYEE_ID, START_DATE));
+
+--1) PRIMARY KEY 삽입 구문 작성 예제 (P.K)
+ ALTER TABLE 해당테이블명
+ ADD CONSTRAINT TBL뺀 해당테이블명_해당컬럼명_PK PRIMARY KEY(해당컬럼명);
+-----------------------------------------------------------------------
+
 ALTER TABLE TBL_TEST4
 ADD CONSTRAINT TSET4_COL1_PK PRIMARY KEY(COL1);
 
 ALTER TABLE JOB_HISTORY
 ADD CONSTRAINT JHIST_EMP_ID_ST_DATE_PK PRIMARY KEY(EMPLOYEE_ID);
 
---2) R 삽입 구문 작성 예제 (F.K)
+--2) FORIGN KEY 삽입 구문 작성 예제 (F.K)
+ ALTER TABLE 참고받는테이블명
+ ADD CONSTRAINT TBL뺀 참고받는테이블명_해당컬럼명_FK FOREIGN KEY(해당컬럼명)
+                REFERENCES 참고할테이블명전체(해당컬럼명);
+-------------------------------------------------------------------------------
+
 ALTER TABLE TBL_EMP3
 ADD ( CONSTRAINT EMP3_SID_ PRIMARY KEY(SID)
     , CONSTRAINT EMP3_JIKWI_ID_FK FOREIGN KEY(JIKWI_ID)
                  REFERENCES TBL_JOBS(JIKWI_ID) );
---3) C 삽입 구문 작성 예제 
+--3) CHECK KEY 삽입 구문 작성 예제 
+ ALTER TABLE 해당테이블명
+ ADD CONSTRAINT TBL뺀해당테이블명_해당컬럼명_CK CHECK(조건);
+--------------------------------------------------------------------------------
+
 ALTER TABLE TBL_TEST10
 ADD ( CONSTRAINT TEST10_COL1_PK PRIMARY KEY(COL1)
     , CONSTRAINT TEST10_COL3_CK CHECK(COL3 BETWEEN 0 AND 100));
 
 --4) NOT NULL 구문 (ADD 사용) (NOT NULL 구문도 C로 들어감..!)
+ ALTER TABLE 해당테이블명
+ ADD CONSTRAINT TBL뺀해당테이블명_해당컬럼명_NN CHECK("해당컬럼명" IS NOT NULL);
+--------------------------------------------------------------------------------
 ALTER TABLE TBL_TEST14
 ADD CONSTRAINT TEST14_COL2_NN CHECK("COL2" IS NOT NULL);
-*/
+
 --------------------------------------------------------------------------------
 --*
 
