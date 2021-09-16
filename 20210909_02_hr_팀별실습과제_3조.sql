@@ -185,7 +185,6 @@ ADD ( CONSTRAINT TEST10_COL1_PK PRIMARY KEY(COL1)
 --------------------------------------------------------------------------------
 ALTER TABLE TBL_TEST14
 ADD CONSTRAINT TEST14_COL2_NN CHECK("COL2" IS NOT NULL);
-
 --------------------------------------------------------------------------------
 --*
 
