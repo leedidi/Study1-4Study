@@ -31,6 +31,10 @@ class Study011
             return true;
         }
         return false;
+
+		n = sc.nextInt();
+        m = sc.nextInt();
+        sc.nextLine(); 
 	}
 }
 
