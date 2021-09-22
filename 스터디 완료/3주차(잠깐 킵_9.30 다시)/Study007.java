@@ -21,7 +21,8 @@ class Study007
 		// 현재 위치..... 나중 방향.......
 
 		String nowPlace = sc.nextLine();	// 지금 나이트의 위치 입력받기
-		
+		int row = nowPlace.charAt(1) - '0';
+        int column = nowPlace.charAt(0) - 'a' + 1;
 	}
 }
 
