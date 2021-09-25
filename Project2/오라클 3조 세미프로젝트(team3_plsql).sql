@@ -1,0 +1,206 @@
+--※ 교수 비밀번호 DEFAULT 트리거
+CREATE OR REPLACE TRIGGER TRG_PRO_PW
+          BEFORE INSERT ON PROFESSOR
+          FOR EACH ROW
+BEGIN
+    :NEW.PRO_PW := :NEW.PRO_LASTSSN;
+END;
+
+
+--※ 학생 비밀번호 DEFAULT 트리거
+CREATE OR REPLACE TRIGGER TRG_STU_PW
+          BEFORE INSERT ON STUDENT
+          FOR EACH ROW
+BEGIN
+    :NEW.STU_PW := :NEW.STU_LASTSSN;
+END;
+
+/*
+성적 정보 입력 프로시저 (성적 입력시 과목개설일이 SYSDATE 보다 미래면 예외처리)
+성적 정보 수정 프로시저
+성적 정보 삭제 프로시저
+
+- 그리고 에러 20004...이후 추가해야 할거 생기면 카톡방에 보내기
+
+-- 성적 테이블
+INSERT INTO SCORE(SCORE_NO, REG_NO, LIST_NO, ATTEND_SCORE, PRAC_SCORE, WRITE_SCORE)
+VALUES();
+*/
+
+-- 예시
+
+-- 교수자 계정 생성 프로시저
+CREATE OR REPLACE PROCEDURE PRC_PRO_INSERT
+( V_ID          IN PROFESSOR.PRO_ID%TYPE
+, V_NAME        IN PROFESSOR.PRO_NAME%TYPE
+, V_FIRSTSSN    IN PROFESSOR.PRO_FIRSTSSN%TYPE
+, V_LASTSSN     IN PROFESSOR.PRO_LASTSSN%TYPE
+)
+IS
+    TEMP_NUM NUMBER;
+    USER_DEFINE_ERROR EXCEPTION;
+    
+BEGIN
+    SELECT COUNT(*) INTO TEMP_NUM
+    FROM PROFESSOR
+    WHERE PRO_FIRSTSSN = V_FIRSTSSN
+      AND PRO_LASTSSN = V_LASTSSN;
+
+    IF (TEMP_NUM != 0)
+        THEN RAISE USER_DEFINE_ERROR;
+    END IF;
+
+    INSERT INTO PROFESSOR(PRO_ID, PRO_NAME, PRO_FIRSTSSN, PRO_LASTSSN)
+    VALUES(V_ID, V_NAME, V_FIRSTSSN, V_LASTSSN);
+    
+    COMMIT;
+    
+    EXCEPTION
+        WHEN USER_DEFINE_ERROR
+            THEN RAISE_APPLICATION_ERROR(-20002, '동일한 교수자가 존재합니다.');
+                ROLLBACK;
+        WHEN OTHERS
+            THEN ROLLBACK;
+            
+END;
+
+-- STRAT...★
+
+INSERT INTO SCORE(SCORE_NO, REG_NO, LIST_NO, ATTEND_SCORE, PRAC_SCORE, WRITE_SCORE)
+VALUES('A001', 'A001', 'A001', 80, 90, 90);
+
+-- 수강신청번호와 과목개설번호가 해당 테이블들에 입력되어 있어야 입력할수 있도록 처리해야하나...?
+-- 성적 입력시 과목개설일이 SYSDATE 보다 미래면 예외처리
+-- 배정된 과목 중에서 강의 진행이 되지 않은 과목은 성적 처리 화면으로 전환되지 않아야 한다. 
+
+-- 1. 성적 정보 입력 프로시저 (성적 입력시 과목개설일이 SYSDATE 보다 미래면 예외처리)
+CREATE OR REPLACE PROCEDURE PRC_SCORE_INSERT
+( V_SCORE_NO      IN SCORE.SCORE_NO%TYPE
+, V_REG_NO        IN SCORE.REG_NO%TYPE
+, V_LIST_NO       IN SCORE.LIST_NO%TYPE
+, V_ATTEND_SCORE  IN SCORE.ATTEND_SCORE%TYPE
+, V_PRAC_SCORE    IN SCORE.PRAC_SCORE%TYPE
+, V_WRITE_SCORE   IN SCORE.WRITE_SCORE%TYPE
+)
+IS
+    V_SUB_STARTDATE     SUB_LIST.SUB_STARTDATE%TYPE;
+    USER_DEFINE_ERROR   EXCEPTION;
+BEGIN
+
+    SELECT SUB_STARTDATE INTO V_SUB_STARTDATE
+    FROM SUB_LIST
+    WHERE LIST_NO = V_LIST_NO;
+    
+    IF (V_SUB_STARTDATE > SYSDATE)
+        THEN RAISE USER_DEFINE_ERROR;
+    END IF;
+
+    INSERT INTO SCORE(SCORE_NO, REG_NO, LIST_NO, ATTEND_SCORE, PRAC_SCORE, WRITE_SCORE)
+    VALUES(V_SCORE_NO, V_REG_NO, V_LIST_NO, V_ATTEND_SCORE, V_PRAC_SCORE, V_WRITE_SCORE);
+    
+    COMMIT;
+    
+    EXCEPTION
+        WHEN USER_DEFINE_ERROR
+            THEN RAISE_APPLICATION_ERROR(-20009, '강의가 진행되지 않은 과목입니다.');
+                ROLLBACK;
+        WHEN OTHERS
+            THEN ROLLBACK;
+            
+END;
+--==>> Procedure PRC_SCORE_INSERT이(가) 컴파일되었습니다.
+
+/*
+DROP PROCEDURE SCORE_INSERT;
+--==>> Procedure SCORE_INSERT이(가) 삭제되었습니다.
+
+DROP PROCEDURE SCORE_PRO_INSERT;
+--==>> Procedure SCORE_PRO_INSERT이(가) 삭제되었습니다.
+
+DROP PROCEDURE SCORE_PRO_UPDATE;
+--==>> Procedure SCORE_PRO_UPDATE이(가) 삭제되었습니다.
+
+DROP PROCEDURE SCORE_PRO_DELETE;
+--==>> Procedure SCORE_PRO_DELETE이(가) 삭제되었습니다.
+*/
+
+-- 성적번호만 받아오기,,,? 성적번호, 수강신청번호, 과목개설번호 등등 다받아오기...?
+-- 일단 성적 번호만 받아와도 될 거 같음!
+-- 성적 입력 전용 화면에서 자신의 강의를 수강한 학생들의 이름은 자동으로 입력되어 있고, 
+-- 교수자는 학생 개개인의 성적만 입력하도록 한다. 
+-- 해당 성적번호가 존재하지 않으면 존재하지 않는 성적입니다.../ 각각의 점수가 0~100이 안됩니다...
+-- 후자가 나을거 같음!
+-- 근데 하나씩 나눠야 하나.... ?? 출결실기필기 하나씩? 아님 합쳐서,,,?
+
+
+-- 2. 성적 정보 수정 프로시저
+CREATE OR REPLACE PROCEDURE PRC_SCORE_UPDATE
+( V_SCORE_NO      IN SCORE.SCORE_NO%TYPE
+, V_ATTEND_SCORE  IN SCORE.ATTEND_SCORE%TYPE
+, V_PRAC_SCORE    IN SCORE.PRAC_SCORE%TYPE
+, V_WRITE_SCORE   IN SCORE.WRITE_SCORE%TYPE
+)
+IS
+    USER_DEFINE_ERROR EXCEPTION;
+BEGIN
+
+    IF ( (V_ATTEND_SCORE NOT BETWEEN 0 AND 100) OR (V_PRAC_SCORE NOT BETWEEN 0 AND 100)
+         OR (V_WRITE_SCORE NOT BETWEEN 0 AND 100) )
+        THEN RAISE USER_DEFINE_ERROR;
+    END IF;
+
+    UPDATE SCORE
+    SET ATTEND_SCORE = V_ATTEND_SCORE, PRAC_SCORE = V_PRAC_SCORE, WRITE_SCORE = V_WRITE_SCORE
+    WHERE SCORE_NO = V_SCORE_NO;
+    
+    COMMIT;
+    
+    EXCEPTION
+        WHEN USER_DEFINE_ERROR
+            THEN RAISE_APPLICATION_ERROR(-20010, '점수는 [0 - 100]점 범위 내에서 입력 가능합니다.');
+            ROLLBACK;
+        WHEN OTHERS
+            THEN ROLLBACK;        
+
+END;
+--==>> Procedure PRC_SCORE_UPDATE이(가) 컴파일되었습니다.
+
+
+-- 3. 성적 정보 삭제 프로시저
+
+CREATE OR REPLACE PROCEDURE PRC_SCORE_DELETE
+( V_SCORE_NO      IN SCORE.SCORE_NO%TYPE
+)
+IS
+    TEMP_SCORE_NO       SCORE.SCORE_NO%TYPE;
+    USER_DEFINE_ERROR   EXCEPTION;
+BEGIN
+    
+    SELECT SCORE_NO INTO TEMP_SCORE_NO
+    FROM SCORE
+    WHERE SCORE_NO = V_SCORE_NO;
+    
+    IF (V_SCORE_NO != TEMP_SCORE_NO)
+        THEN RAISE USER_DEFINE_ERROR;
+    END IF;
+    
+    DELETE
+    FROM SCORE
+    WHERE SCORE_NO = V_SCORE_NO;
+    
+    COMMIT;
+    
+    EXCEPTION
+        WHEN USER_DEFINE_ERROR
+            THEN RAISE_APPLICATION_ERROR(-20011, '입력한 성적이 존재하지 않습니다.');
+                 ROLLBACK;
+        WHEN OTHERS
+            THEN ROLLBACK;
+    
+END;
+--==>> Procedure PRC_SCORE_DELETE이(가) 컴파일되었습니다.
+
+-- 출력 에러 구문들
+RAISE_APPLICATION_ERROR(-20009, '강의가 진행되지 않은 과목입니다.');
+RAISE_APPLICATION_ERROR(-20010, '점수는 [0 - 100]점 범위 내에서 입력 가능합니다.');
+RAISE_APPLICATION_ERROR(-20011, '입력한 성적이 존재하지 않습니다.');
