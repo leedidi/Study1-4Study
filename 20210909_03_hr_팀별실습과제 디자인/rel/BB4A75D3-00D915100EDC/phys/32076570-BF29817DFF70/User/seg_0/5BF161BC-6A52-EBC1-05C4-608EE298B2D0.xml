@@ -1,0 +1,9 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<UserOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UserOraclev10g" name="HR" directorySegmentName="seg_0" id="5BF161BC-6A52-EBC1-05C4-608EE298B2D0">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjName>HR</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:22 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<schemaObject>B0A84B97-0E6F-99C5-A6EB-E203EEAC12E0</schemaObject>
+</UserOraclev10g>

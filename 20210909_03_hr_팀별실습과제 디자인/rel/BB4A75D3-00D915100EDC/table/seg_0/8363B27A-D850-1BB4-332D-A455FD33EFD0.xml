@@ -1,0 +1,151 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8363B27A-D850-1BB4-332D-A455FD33EFD0" schemaObject="B0A84B97-0E6F-99C5-A6EB-E203EEAC12E0" name="DEPARTMENTS">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>DEPARTMENTS</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[Departments table that shows details of departments where employees
+work. Contains 27 rows; references with locations, employees, and job_history tables.]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="DEPARTMENT_ID" id="0A96F279-8BD8-61B0-E1D4-5760BA7866CD">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>DEPARTMENTS</sourceObjSchema>
+<sourceObjName>DEPARTMENT_ID</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[Primary key column of departments table.]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DEPARTMENT_NAME" id="77CCB6D8-3458-C96A-5A39-3C585B614585">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>DEPARTMENTS</sourceObjSchema>
+<sourceObjName>DEPARTMENT_NAME</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[A not null column that shows name of a department. Administration,
+Marketing, Purchasing, Human Resources, Shipping, IT, Executive, Public
+Relations, Sales, Finance, and Accounting. ]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 BYTE</dataTypeSize>
+<ownDataTypeParameters>30 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<notNullConstraintName>DEPT_NAME_NN</notNullConstraintName>
+</Column>
+<Column name="MANAGER_ID" id="10A9C05A-8FFE-01CE-23C5-C65F2E65CF39">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>DEPARTMENTS</sourceObjSchema>
+<sourceObjName>MANAGER_ID</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[Manager_id of a department. Foreign key to employee_id column of employees table. The manager_id column of the employee table references this column.]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,6,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="515DD9FB-3928-4811-7E84-D28411A2D7B6" referredColumn="34025180-15D7-6E07-BF8F-F66ACDFE3E61"/>
+</associations>
+</Column>
+<Column name="LOCATION_ID" id="92C47F4B-A7AA-7136-4867-218A4502E78D">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>DEPARTMENTS</sourceObjSchema>
+<sourceObjName>LOCATION_ID</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[Location id where a department is located. Foreign key to location_id column of locations table.]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="556A4191-7136-06B7-4C11-35453DCB55D6" referredColumn="9F88EFA5-434B-85B7-F162-9D35981E4FAD"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B1DF76CC-469E-B169-8B6E-36F66029A2D7" name="DEPT_ID_PK">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>DEPT_ID_PK</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0A96F279-8BD8-61B0-E1D4-5760BA7866CD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4AB05CBF-5794-609D-BDB3-F7EA3C249472" schemaObject="B0A84B97-0E6F-99C5-A6EB-E203EEAC12E0" name="DEPT_ID_PK">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>DEPT_ID_PK</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0A96F279-8BD8-61B0-E1D4-5760BA7866CD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1CD58F80-0811-1A6E-5FEE-E265F7FB4210" schemaObject="B0A84B97-0E6F-99C5-A6EB-E203EEAC12E0" name="DEPT_LOCATION_IX">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>DEPT_LOCATION_IX</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="92C47F4B-A7AA-7136-4867-218A4502E78D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E97C86D8-EE7C-B0A3-C0BE-DC3E1CC64BFE" name="DEPT_LOC_FK">
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="92C47F4B-A7AA-7136-4867-218A4502E78D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="64E02EF4-C019-69CE-3EF1-38E106437AC0" name="DEPT_MGR_FK">
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="10A9C05A-8FFE-01CE-23C5-C65F2E65CF39"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,350 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1B9167A3-162A-94DB-0EA3-2F61EC0ACFCF" schemaObject="B0A84B97-0E6F-99C5-A6EB-E203EEAC12E0" name="EMPLOYEES">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>EMPLOYEES</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[employees table. Contains 107 rows. References with departments,
+jobs, job_history tables. Contains a self reference.]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="EMPLOYEE_ID" id="34025180-15D7-6E07-BF8F-F66ACDFE3E61">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>EMPLOYEES</sourceObjSchema>
+<sourceObjName>EMPLOYEE_ID</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[Primary key of employees table.]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,6,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FIRST_NAME" id="33E4A6F7-E388-C80D-4FC6-F511375803A1">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>EMPLOYEES</sourceObjSchema>
+<sourceObjName>FIRST_NAME</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[First name of the employee. A not null column.]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_NAME" id="C8858685-9B40-49F1-6D80-D727B3839DE0">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>EMPLOYEES</sourceObjSchema>
+<sourceObjName>LAST_NAME</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[Last name of the employee. A not null column.]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25 BYTE</dataTypeSize>
+<ownDataTypeParameters>25 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<notNullConstraintName>EMP_LAST_NAME_NN</notNullConstraintName>
+</Column>
+<Column name="EMAIL" id="D618E212-AB64-BE0A-832D-0835F827863E">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>EMPLOYEES</sourceObjSchema>
+<sourceObjName>EMAIL</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[Email id of the employee]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25 BYTE</dataTypeSize>
+<ownDataTypeParameters>25 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<notNullConstraintName>EMP_EMAIL_NN</notNullConstraintName>
+</Column>
+<Column name="PHONE_NUMBER" id="EDDB8831-59F9-7709-5346-3814A91B850E">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>EMPLOYEES</sourceObjSchema>
+<sourceObjName>PHONE_NUMBER</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[Phone number of the employee; includes country code and area code]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HIRE_DATE" id="4B7BC030-9E96-177B-488D-6769BD2439E1">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>EMPLOYEES</sourceObjSchema>
+<sourceObjName>HIRE_DATE</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[Date when the employee started on this job. A not null column.]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<notNullConstraintName>EMP_HIRE_DATE_NN</notNullConstraintName>
+</Column>
+<Column name="JOB_ID" id="6C8585B1-9DE0-0210-348F-DDC62677BCF2">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>EMPLOYEES</sourceObjSchema>
+<sourceObjName>JOB_ID</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[Current job of the employee; foreign key to job_id column of the
+jobs table. A not null column.]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10 BYTE</dataTypeSize>
+<ownDataTypeParameters>10 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<notNullConstraintName>EMP_JOB_NN</notNullConstraintName>
+<associations>
+<colAssociation fkAssociation="D67A7F21-3FD8-91E8-4FF6-B7886A664D50" referredColumn="B2C5AEF1-B9A6-D815-7791-2F650EA941FA"/>
+</associations>
+</Column>
+<Column name="SALARY" id="2DD0E2D3-3253-C370-378B-311F1C2B0FDC">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>EMPLOYEES</sourceObjSchema>
+<sourceObjName>SALARY</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[Monthly salary of the employee. Must be greater
+than zero (enforced by constraint emp_salary_min)]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<constraintName>EMP_SALARY_MIN</constraintName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="salary &gt; 0"/>
+<implementationDef dbType="Oracle Database 11g" definition="salary &gt; 0"/>
+</checkConstraint>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COMMISSION_PCT" id="FDB6D2D7-368B-675A-1C22-E97C24FC9421">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>EMPLOYEES</sourceObjSchema>
+<sourceObjName>COMMISSION_PCT</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[Commission percentage of the employee; Only employees in sales
+department elgible for commission percentage]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,2,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MANAGER_ID" id="74A8411B-43A7-E4FE-CE62-33FE73635782">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>EMPLOYEES</sourceObjSchema>
+<sourceObjName>MANAGER_ID</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[Manager id of the employee; has same domain as manager_id in
+departments table. Foreign key to employee_id column of employees table.
+(useful for reflexive joins and CONNECT BY query)]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,6,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1DCC4B22-BA32-BF00-8517-45BF4C3C7A82" referredColumn="34025180-15D7-6E07-BF8F-F66ACDFE3E61"/>
+</associations>
+</Column>
+<Column name="DEPARTMENT_ID" id="0D41A61D-4CB2-B319-3F93-54A4A90C6E70">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>EMPLOYEES</sourceObjSchema>
+<sourceObjName>DEPARTMENT_ID</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[Department id where employee works; foreign key to department_id
+column of the departments table]]></commentInRDBMS>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F6EE644E-E51C-FED5-0947-177DDD26E327" referredColumn="0A96F279-8BD8-61B0-E1D4-5760BA7866CD"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="28E111A1-D97D-6445-63A5-A42A7F7C064B" name="EMP_EMP_ID_PK">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>EMP_EMP_ID_PK</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="34025180-15D7-6E07-BF8F-F66ACDFE3E61"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="82D835BD-F65B-7C1C-A191-42995E8CAEFB" name="EMP_EMAIL_UK">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>EMP_EMAIL_UK</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D618E212-AB64-BE0A-832D-0835F827863E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="916248FB-1F0E-9AAD-E85E-4A9181FFAD2D" schemaObject="B0A84B97-0E6F-99C5-A6EB-E203EEAC12E0" name="EMP_DEPARTMENT_IX">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>EMP_DEPARTMENT_IX</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0D41A61D-4CB2-B319-3F93-54A4A90C6E70"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3695D8B9-4181-79ED-D511-B74078C94DA5" schemaObject="B0A84B97-0E6F-99C5-A6EB-E203EEAC12E0" name="EMP_EMAIL_UK">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>EMP_EMAIL_UK</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D618E212-AB64-BE0A-832D-0835F827863E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CD70B963-DB71-EACD-DD97-B974E29429D4" schemaObject="B0A84B97-0E6F-99C5-A6EB-E203EEAC12E0" name="EMP_EMP_ID_PK">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>EMP_EMP_ID_PK</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="34025180-15D7-6E07-BF8F-F66ACDFE3E61"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="762C9525-56F5-DC52-9AC2-190988081AD3" schemaObject="B0A84B97-0E6F-99C5-A6EB-E203EEAC12E0" name="EMP_JOB_IX">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>EMP_JOB_IX</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6C8585B1-9DE0-0210-348F-DDC62677BCF2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="95B36B6E-C9FC-21FF-3BFE-E22A951FDE55" schemaObject="B0A84B97-0E6F-99C5-A6EB-E203EEAC12E0" name="EMP_MANAGER_IX">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>EMP_MANAGER_IX</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="74A8411B-43A7-E4FE-CE62-33FE73635782"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2B326770-38B9-B29F-A9A9-0E9D6B4BAC91" schemaObject="B0A84B97-0E6F-99C5-A6EB-E203EEAC12E0" name="EMP_NAME_IX">
+<sourceConnName>local_hr</sourceConnName>
+<sourceObjSchema>HR</sourceObjSchema>
+<sourceObjName>EMP_NAME_IX</sourceObjName>
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C8858685-9B40-49F1-6D80-D727B3839DE0"/>
+<colUsage columnID="33E4A6F7-E388-C80D-4FC6-F511375803A1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B52C9979-8479-7297-C72D-A40F71412E82" name="EMP_DEPT_FK">
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0D41A61D-4CB2-B319-3F93-54A4A90C6E70"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="04D854C7-E740-57B6-887B-ED3DF013A908" name="EMP_JOB_FK">
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6C8585B1-9DE0-0210-348F-DDC62677BCF2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4EEC3A31-5EA5-F9D6-831E-1B0C0F51FCE9" name="EMP_MANAGER_FK">
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="74A8411B-43A7-E4FE-CE62-33FE73635782"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

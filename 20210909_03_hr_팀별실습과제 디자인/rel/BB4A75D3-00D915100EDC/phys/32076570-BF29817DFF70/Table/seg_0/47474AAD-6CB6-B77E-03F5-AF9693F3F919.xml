@@ -1,0 +1,52 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="COUNTRIES" directorySegmentName="seg_0" id="47474AAD-6CB6-B77E-03F5-AF9693F3F919">
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<schemaObject>B0A84B97-0E6F-99C5-A6EB-E203EEAC12E0</schemaObject>
+<iotPctThreshold>50</iotPctThreshold>
+<logging>YES</logging>
+<organization>INDEX</organization>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>824B8957-4433-0299-232C-9C93F52126B2</segment>
+<tableSpace>16811A7B-688E-BD81-8C19-60DF02D671B8</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="REGION_ID" id="2A600200-1D82-29B3-BD5B-B272B5BB30BB">
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="COUNTRY_NAME" id="B5795CF1-2A3F-14B0-3A3C-ECE20FF43246">
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="COUNTRY_ID" id="BDBBDC61-2283-180C-158B-616FCAE41004">
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="COUNTR_REG_FK" id="41311A33-A02D-E69D-DAE1-505D4CD6A9A9">
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="COUNTRY_C_ID_PK" id="8AD797D8-53AC-0068-0805-56FAA8541D7F">
+<createdBy>test</createdBy>
+<createdTime>2021-09-10 01:29:23 UTC</createdTime>
+<ownerDesignName>20210909_03_hr_팀별실습과제 디자인</ownerDesignName>
+<schemaObject>B0A84B97-0E6F-99C5-A6EB-E203EEAC12E0</schemaObject>
+<segment>824B8957-4433-0299-232C-9C93F52126B2</segment>
+<tableSpace>16811A7B-688E-BD81-8C19-60DF02D671B8</tableSpace>
+<indexSegment>824B8957-4433-0299-232C-9C93F52126B2</indexSegment>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>
