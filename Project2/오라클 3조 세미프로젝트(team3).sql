@@ -169,3 +169,61 @@ CREATE TABLE STU_DROP
 
 SELECT *
 FROM TAB;
+
+
+INSERT INTO ADMIN(AD_ID, AD_PW)
+VALUES('ABC', 1234);
+
+INSERT INTO ADMIN(AD_ID, AD_PW)
+VALUES('ABC', 1111);
+
+
+-- INSERT TEST
+--EX>
+-- 수강신청 테이블
+INSERT INTO REGISTRATION(REG_NO, STU_ID, CUR_NO, REG_DATE)
+VALUES();
+
+
+-- 과목개설 테이블
+INSERT INTO SUB_LIST(LIST_NO, CUR_NO, SUB_NO, SUB_STARTDATE,SUB_ENDDATE, PRO_ID, ATTEND_DIV, PRAC_DIV, WRITE_DIV)
+VALUES();
+
+-- 성적 테이블
+INSERT INTO SCORE(SCORE_NO, REG_NO, LIST_NO, ATTEND_SCORE, PRAC_SCORE, WRITE_SCORE)
+VALUES();
+
+-- TEST
+-- 수강신청 테이블
+INSERT INTO REGISTRATION(REG_NO, STU_ID, CUR_NO, REG_DATE)
+VALUES('A001','ABC123','A001', SYSDATE);
+
+-- 과목개설 테이블
+INSERT INTO SUB_LIST(LIST_NO, CUR_NO, SUB_NO, SUB_STARTDATE,SUB_ENDDATE, PRO_ID, ATTEND_DIV, PRAC_DIV, WRITE_DIV)
+VALUES();
+
+-- 성적 테이블
+INSERT INTO SCORE(SCORE_NO, REG_NO, LIST_NO, ATTEND_SCORE, PRAC_SCORE, WRITE_SCORE)
+VALUES();
+
+
+-- 시퀀스 생성
+CREATE SEQUENCE SEQ_CURRICULUM   -- 시퀀스 생성 기본 구문
+START WITH 1                -- 시작값
+INCREMENT BY 1              -- 증가값
+NOMAXVALUE                  -- 최대값 제한 안둠
+NOCACHE;                    -- 캐시 사용 안함(없음)
+--==>> Sequence SEQ_CURRICULUM이(가) 생성되었습니다.
+
+drop sequence SEQ_CURRICULUM;
+--==>> Sequence SEQ_CURRICULUM이(가) 삭제되었습니다.
+
+CREATE SEQUENCE SEQ_SUB_LIST   -- 시퀀스 생성 기본 구문
+START WITH 1                -- 시작값
+INCREMENT BY 1              -- 증가값
+NOMAXVALUE                  -- 최대값 제한 안둠
+NOCACHE; 
+--==>> Sequence SEQ_SUB_LIST이(가) 생성되었습니다.
+
+--과정번호 생성(CUR-1, CUR-2, ..., CUR-999 의 형태)
+    V_CUR_NO := ('CUR-' || TO_CHAR(SEQ_CURRICULUM.NEXTVAL));

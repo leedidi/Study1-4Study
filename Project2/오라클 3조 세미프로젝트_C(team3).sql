@@ -185,23 +185,6 @@ ON P.PRO_ID = SL.PRO_ID
 
 
 
-INSERT INTO ADMIN(AD_ID, AD_PW)
-VALUES('ABC', 1234);
-
-INSERT INTO ADMIN(AD_ID, AD_PW)
-VALUES('ABC', 1111);
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
